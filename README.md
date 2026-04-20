@@ -33,15 +33,36 @@ Foram desenvolvidas duas abordagens:
 
 ---
 
-### 🎥 Vídeo de apresentação (em breve)
+### 🎥 Vídeo de apresentação
 
-<!-- Substituir o link abaixo quando o vídeo estiver pronto -->
 [![Assista no YouTube](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
 
 ---
 
 ### 🔹 Projeto 2 - K-Means Clustering
-🚧 Em desenvolvimento
+
+Neste projeto, desenvolvemos a implementação do algoritmo de agrupamento não supervisionado **K-Means** utilizando o dataset Iris (excluindo a variável alvo durante o treinamento).
+
+Foram desenvolvidas duas abordagens para fins de comparação arquitetural e de desempenho:
+
+- Implementação **manual (hardcore)** do algoritmo do zero
+- Implementação utilizando a biblioteca **Scikit-learn**
+
+### 📊 O que foi feito:
+- Implementação completa do K-Means (inicialização, atribuição de clusters, atualização de centróides e convergência).
+- Testes práticos variando o número de clusters ($k=3$ e $k=5$).
+- Avaliação da qualidade dos clusters utilizando a métrica **Silhouette Score**.
+- Análise de Desempenho, comparando o tempo de execução (fit e predict) entre a solução manual e a biblioteca consolidada.
+- Redução de Dimensionalidade com **PCA** (Análise de Componentes Principais) para 1D e 2D, permitindo a visualização gráfica dos clusters e centróides.
+- Validação Externa utilizando uma **Matriz de Contingência (Heatmap)** para cruzar os clusters descobertos matematicamente com as classes reais das espécies.
+
+📘 O projeto foi desenvolvido em formato de **Jupyter Notebook**, permitindo visualização passo a passo do processo.
+
+---
+
+### 🎥 Vídeo de apresentação
+
+[![Assista no YouTube](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
 
 ---
 
