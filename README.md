@@ -35,7 +35,7 @@ Foram desenvolvidas duas abordagens:
 
 ### 🎥 Vídeo de apresentação
 
-[![Assista no YouTube](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Assista no YouTube](https://img.youtube.com/vi/XwBJordteyo/0.jpg)](https://www.youtube.com/watch?v=XwBJordteyo)
 
 ---
 
@@ -62,7 +62,7 @@ Foram desenvolvidas duas abordagens para fins de comparação arquitetural e de 
 
 ### 🎥 Vídeo de apresentação
 
-[![Assista no YouTube](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Assista no YouTube](https://img.youtube.com/vi/xve_7U4ccgQ/0.jpg)](https://www.youtube.com/watch?v=xve_7U4ccgQ)
 
 ---
 
