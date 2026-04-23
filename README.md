@@ -66,8 +66,32 @@ Foram desenvolvidas duas abordagens para fins de comparação arquitetural e de 
 
 ---
 
-### 🔹 Projeto 3 - Perceptron / Redes Neurais
-🚧 Em desenvolvimento
+### 🔹 Projeto 3 - MLPClassifier (Perceptron / Redes Neurais)
+
+Neste projeto, exploramos os conceitos de Redes Neurais Artificiais (*Eager Learning*) através da implementação do algoritmo **Multilayer Perceptron (MLPClassifier)**.
+
+O modelo foi treinado e avaliado em duas bases de dados multiclasse distintas para testar sua capacidade de generalização:
+- **Dataset Iris:** Problema com separabilidade quase linear e menor dimensionalidade.
+- **Dataset Wine:** Base de dados com maior dimensionalidade (13 atributos químicos) e maior complexidade de padrões não lineares.
+
+### 📊 O que foi feito:
+- Divisão dos dados em conjuntos de treino e teste (80/20 com stratify).
+- Pré-processamento dos dados com padronização rigorosa (utilizando `StandardScaler`), um passo crítico para a convergência correta dos pesos via descida do gradiente na rede neural.
+- Treinamento do classificador `MLPClassifier` da biblioteca **Scikit-learn**.
+- Extração de métricas de avaliação do classificador:
+  - Acurácia
+  - Precisão (Macro)
+  - Revocação (Macro)
+- Geração e visualização da matriz de confusão.
+- **Análise Comparativa** de desempenho entre o modelo baseado em redes neurais (MLP) e o modelo baseado em instâncias (KNN - desenvolvido no Projeto 1).
+
+📘 O projeto foi desenvolvido em formato de **Jupyter Notebook**, acompanhado de um **Relatório Técnico em PDF** com a conclusão detalhada da comparação algorítmica.
+
+---
+
+### 🎥 Vídeo de apresentação
+
+[![Assista no YouTube](https://img.youtube.com/vi/xve_7U4ccgQ/0.jpg)](https://www.youtube.com/watch?v=xve_7U4ccgQ)
 
 ---
 
@@ -114,29 +138,5 @@ O objetivo deste repositório é consolidar o aprendizado prático em Inteligên
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/gilmar-filho/GCC128-Inteligencia_Artificial.git
+git clone [https://github.com/gilmar-filho/GCC128-Inteligencia_Artificial.git](https://github.com/gilmar-filho/GCC128-Inteligencia_Artificial.git)
 cd GCC128-Inteligencia_Artificial
-```
-
-2. Abra e execute o arquivo `.ipynb` do projeto desejado.
-> Lembre-se de instalar as bibliotecas necessárias para rodar o projeto!
-
----
-
-## 📌 Observações
-
-- Os projetos são organizados em notebooks para facilitar o entendimento passo a passo.  
-- Cada projeto pode ser executado de forma independente.  
-
----
-
-## 👥 Autores
-
-| [<img src="https://avatars.githubusercontent.com/u/154689201?v=4" width="100px"><br><sub>@gilmar-filho</sub>](https://github.com/gilmar-filho) | [<img src="https://avatars.githubusercontent.com/u/123120658?v=4" width="100px"><br><sub>@SamuVanoni</sub>](https://github.com/SamuVanoni) |
-| :---: | :---: |
-
----
-
-## 📄 Licença
-
-Este projeto é de uso acadêmico.
