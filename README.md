@@ -31,8 +31,6 @@ Foram desenvolvidas duas abordagens:
 
 📘 O projeto foi desenvolvido em formato de **Jupyter Notebook**, permitindo visualização passo a passo do processo.
 
----
-
 ### 🎥 Vídeo de apresentação
 
 [![Assista no YouTube](https://img.youtube.com/vi/XwBJordteyo/0.jpg)](https://www.youtube.com/watch?v=XwBJordteyo)
@@ -57,8 +55,6 @@ Foram desenvolvidas duas abordagens para fins de comparação arquitetural e de 
 - Validação Externa utilizando uma **Matriz de Contingência (Heatmap)** para cruzar os clusters descobertos matematicamente com as classes reais das espécies.
 
 📘 O projeto foi desenvolvido em formato de **Jupyter Notebook**, permitindo visualização passo a passo do processo.
-
----
 
 ### 🎥 Vídeo de apresentação
 
@@ -86,8 +82,6 @@ O modelo foi treinado e avaliado em duas bases de dados multiclasse distintas pa
 - **Análise Comparativa** de desempenho entre o modelo baseado em redes neurais (MLP) e o modelo baseado em instâncias (KNN - desenvolvido no Projeto 1).
 
 📘 O projeto foi desenvolvido em formato de **Jupyter Notebook**, acompanhado de um **Relatório Técnico em PDF** com a conclusão detalhada da comparação algorítmica.
-
----
 
 ### 🎥 Vídeo de apresentação
 
@@ -138,5 +132,29 @@ O objetivo deste repositório é consolidar o aprendizado prático em Inteligên
 
 1. Clone o repositório:
 ```bash
-git clone [https://github.com/gilmar-filho/GCC128-Inteligencia_Artificial.git](https://github.com/gilmar-filho/GCC128-Inteligencia_Artificial.git)
+git clone https://github.com/gilmar-filho/GCC128-Inteligencia_Artificial.git
 cd GCC128-Inteligencia_Artificial
+```
+
+2. Abra e execute o arquivo `.ipynb` do projeto desejado.
+> Lembre-se de instalar as bibliotecas necessárias para rodar o projeto!
+
+---
+
+## 📌 Observações
+
+- Os projetos são organizados em notebooks para facilitar o entendimento passo a passo.  
+- Cada projeto pode ser executado de forma independente.  
+
+---
+
+## 👥 Autores
+
+| [<img src="https://avatars.githubusercontent.com/u/154689201?v=4" width="100px"><br><sub>@gilmar-filho</sub>](https://github.com/gilmar-filho) | [<img src="https://avatars.githubusercontent.com/u/123120658?v=4" width="100px"><br><sub>@SamuVanoni</sub>](https://github.com/SamuVanoni) |
+| :---: | :---: |
+
+---
+
+## 📄 Licença
+
+Este projeto é de uso acadêmico.
