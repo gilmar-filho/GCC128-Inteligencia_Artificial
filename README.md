@@ -85,7 +85,7 @@ O modelo foi treinado e avaliado em duas bases de dados multiclasse distintas pa
 
 ### 🎥 Vídeo de apresentação
 
-[![Assista no YouTube](https://img.youtube.com/vi/xve_7U4ccgQ/0.jpg)](https://www.youtube.com/watch?v=xve_7U4ccgQ)
+[![Assista no YouTube](https://img.youtube.com/vi/1n4PkdkJV50/0.jpg)](https://www.youtube.com/watch?v=1n4PkdkJV50)
 
 ---
 
