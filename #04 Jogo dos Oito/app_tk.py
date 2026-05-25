@@ -1,6 +1,6 @@
 """
-app.py
-Interface Tkinter do Jogo dos Oito.
+app_tk.py
+Interface gráfica do Jogo dos Oito.
 O usuário pode jogar manualmente, pedir solução via BFS ou A*,
 ou fazer os dois na ordem que quiser.
 """
@@ -8,13 +8,11 @@ ou fazer os dois na ordem que quiser.
 import tkinter as tk
 from tkinter import messagebox
 
-from puzzle.board import GOAL, SIZE, is_solvable
-from puzzle.bfs import bfs
-from puzzle.astar import astar
-from puzzle.game import apply_move, random_state
+from tabuleiro import ESTADO_META, TAMANHO, tem_solucao, estado_aleatorio, mover_peca, mover_teclado
+from algoritmos import bfs, a_estrela
 
 # Delay entre cada passo da animação da solução (ms)
-STEP_DELAY = 400
+DELAY_ANIMACAO = 400
 
 
 class App(tk.Tk):
@@ -23,190 +21,187 @@ class App(tk.Tk):
         self.title("Jogo dos Oito — GCC 128 IA")
         self.resizable(False, False)
 
-        self.board = random_state()
-        self.moves = 0
-        self._solution_steps = []   # fila de estados a animar
-        self._animating = False
+        self.tabuleiro = estado_aleatorio()
+        self.movimentos = 0
+        self._passos_solucao = []   # fila de estados a animar
+        self._animando = False
 
-        self._build_ui()
-        self._bind_keys()
-        self._refresh()
+        self._construir_interface()
+        self._configurar_teclado()
+        self._atualizar()
 
-    # ── Construção da UI ──────────────────────────────────────────────────────
+    # ── Construção da interface ───────────────────────────────────────────────
 
-    def _build_ui(self):
-        # Tabuleiro: cada peça é um Button clicável
-        board_frame = tk.Frame(self, padx=16, pady=16)
-        board_frame.pack()
+    def _construir_interface(self):
+        # Tabuleiro: cada peça é um botão clicável
+        frame_tabuleiro = tk.Frame(self, padx=16, pady=16)
+        frame_tabuleiro.pack()
 
-        self._tiles = []
-        for i in range(SIZE * SIZE):
+        self._pecas = []
+        for i in range(TAMANHO * TAMANHO):
             btn = tk.Button(
-                board_frame,
+                frame_tabuleiro,
                 width=4, height=2,
                 font=("Helvetica", 28, "bold"),
                 relief="raised",
                 borderwidth=3,
-                command=lambda pos=i: self._click_tile(pos),
+                command=lambda pos=i: self._clicar_peca(pos),
             )
-            btn.grid(row=i // SIZE, column=i % SIZE, padx=4, pady=4)
-            self._tiles.append(btn)
+            btn.grid(row=i // TAMANHO, column=i % TAMANHO, padx=4, pady=4)
+            self._pecas.append(btn)
 
         # Contador de movimentos
-        self._status_var = tk.StringVar()
-        tk.Label(self, textvariable=self._status_var, font=("Helvetica", 11)).pack()
+        self._var_status = tk.StringVar()
+        tk.Label(self, textvariable=self._var_status, font=("Helvetica", 11)).pack()
 
         # Botões de algoritmo
-        algo_frame = tk.Frame(self, pady=8)
-        algo_frame.pack()
+        frame_algoritmos = tk.Frame(self, pady=8)
+        frame_algoritmos.pack()
 
         tk.Button(
-            algo_frame, text="Resolver com BFS", width=18,
-            command=lambda: self._solve("BFS"),
+            frame_algoritmos, text="Resolver com BFS", width=18,
+            command=lambda: self._resolver("BFS"),
         ).grid(row=0, column=0, padx=6)
 
         tk.Button(
-            algo_frame, text="Resolver com A*", width=18,
-            command=lambda: self._solve("A*"),
+            frame_algoritmos, text="Resolver com A*", width=18,
+            command=lambda: self._resolver("A*"),
         ).grid(row=0, column=1, padx=6)
 
         # Resultado do algoritmo
-        self._result_var = tk.StringVar()
-        tk.Label(self, textvariable=self._result_var, font=("Helvetica", 10), fg="gray").pack()
+        self._var_resultado = tk.StringVar()
+        tk.Label(self, textvariable=self._var_resultado, font=("Helvetica", 10), fg="gray").pack()
 
         # Novo jogo
         tk.Button(
             self, text="Novo jogo", width=20, pady=4,
-            command=self._new_game,
+            command=self._novo_jogo,
         ).pack(pady=(8, 16))
 
-    def _bind_keys(self):
+    def _configurar_teclado(self):
         """
-        Setas do teclado movem o número adjacente ao espaço.
-        A seta indica a direção em que o número se desloca,
-        o que equivale a mover o espaço na direção oposta.
+        Setas do teclado movem o número adjacente para o espaço vazio.
+        A seta indica a direção em que o número se desloca —
+        o espaço se move na direção oposta.
         """
-        opposites = {
+        opostos = {
             "<Up>":    "baixo",
             "<Down>":  "cima",
             "<Left>":  "direita",
             "<Right>": "esquerda",
         }
-        for key, direction in opposites.items():
-            self.bind(key, lambda e, d=direction: self._move(d))
+        for tecla, direcao in opostos.items():
+            self.bind(tecla, lambda e, d=direcao: self._mover_teclado(d))
 
     # ── Atualização visual ────────────────────────────────────────────────────
 
-    def _refresh(self):
-        """Redesenha todas as peças e atualiza o status."""
-        for i, btn in enumerate(self._tiles):
-            val = self.board[i]
-            if val == 0:
+    def _atualizar(self):
+        """Redesenha todas as peças e atualiza o contador de movimentos."""
+        for i, btn in enumerate(self._pecas):
+            valor = self.tabuleiro[i]
+            if valor == 0:
                 btn.config(text="", bg="#d9d9d9", relief="flat", state="normal")
             else:
-                btn.config(text=str(val), bg="white", relief="raised", state="normal")
+                btn.config(text=str(valor), bg="white", relief="raised", state="normal")
 
-        if self.board == GOAL:
-            self._status_var.set(f"Resolvido em {self.moves} movimentos!")
+        if self.tabuleiro == ESTADO_META:
+            self._var_status.set(f"Resolvido em {self.movimentos} movimentos!")
         else:
-            self._status_var.set(f"Movimentos: {self.moves}")
+            self._var_status.set(f"Movimentos: {self.movimentos}")
 
     # ── Ações do jogador ──────────────────────────────────────────────────────
 
-    def _click_tile(self, pos: int):
+    def _clicar_peca(self, posicao):
         """
         O usuário clica em uma peça numerada.
         Se ela for adjacente ao espaço em branco, desliza para lá.
         """
-        if self._animating:
+        if self._animando:
             return
 
-        blank = self.board.index(0)
+        novo = mover_peca(self.tabuleiro, posicao)
+        if novo is None:
+            return  # peça não é adjacente ao espaço, ignora
 
-        # Verifica se a peça clicada é vizinha do espaço (mesma linha ou coluna, distância 1)
-        row_diff = abs(pos // SIZE - blank // SIZE)
-        col_diff = abs(pos % SIZE  - blank % SIZE)
-        is_adjacent = (row_diff + col_diff) == 1
+        self.tabuleiro = novo
+        self.movimentos += 1
+        self._var_resultado.set("")
+        self._atualizar()
 
-        if not is_adjacent:
+    def _mover_teclado(self, direcao):
+        """Move o espaço em branco na direção indicada pelo teclado."""
+        if self._animando:
             return
 
-        # Troca a peça clicada com o espaço em branco
-        new_board = list(self.board)
-        new_board[blank], new_board[pos] = new_board[pos], new_board[blank]
-        self.board = tuple(new_board)
-        self.moves += 1
-        self._result_var.set("")
-        self._refresh()
-
-    def _move(self, direction: str):
-        """Move o espaço em branco na direção indicada (usado pelo teclado)."""
-        if self._animating:
-            return
-        new_board = apply_move(self.board, direction)
-        if new_board is None:
-            return
-        self.board = new_board
-        self.moves += 1
-        self._result_var.set("")
-        self._refresh()
-
-    def _new_game(self):
-        self._animating = False
-        self._solution_steps = []
-        self.board = random_state()
-        self.moves = 0
-        self._result_var.set("")
-        self._refresh()
-
-    # ── Solver com animação ───────────────────────────────────────────────────
-
-    def _solve(self, algo: str):
-        if self._animating:
+        novo = mover_teclado(self.tabuleiro, direcao)
+        if novo is None:
             return
 
-        if self.board == GOAL:
+        self.tabuleiro = novo
+        self.movimentos += 1
+        self._var_resultado.set("")
+        self._atualizar()
+
+    def _novo_jogo(self):
+        self._animando = False
+        self._passos_solucao = []
+        self.tabuleiro = estado_aleatorio()
+        self.movimentos = 0
+        self._var_resultado.set("")
+        self._atualizar()
+
+    # ── Resolução com animação ────────────────────────────────────────────────
+
+    def _resolver(self, algoritmo):
+        if self._animando:
+            return
+
+        if self.tabuleiro == ESTADO_META:
             messagebox.showinfo("Jogo dos Oito", "O tabuleiro já está na posição-meta.")
             return
 
-        if not is_solvable(self.board):
+        if not tem_solucao(self.tabuleiro):
             messagebox.showwarning("Jogo dos Oito", "Estado sem solução.")
             return
 
-        fn = bfs if algo == "BFS" else astar
-        result = fn(self.board)
+        # Executa o algoritmo escolhido a partir do estado atual
+        fn = bfs if algoritmo == "BFS" else a_estrela
+        resultado = fn(self.tabuleiro)
 
-        if not result["found"]:
+        if not resultado["encontrou"]:
             messagebox.showerror("Jogo dos Oito", "Solução não encontrada.")
             return
 
         info = (
-            f"{algo}: {result['depth']} movimentos · "
-            f"{result['nodes']:,} nós · "
-            f"{result['time_ms']:.1f} ms"
+            f"{algoritmo}: {resultado['movimentos']} movimentos · "
+            f"{resultado['nos']:,} nós · "
+            f"{resultado['tempo_ms']:.1f} ms"
         )
-        self._result_var.set(info)
+        self._var_resultado.set(info)
 
-        # Descarta o primeiro passo (estado atual já exibido)
-        self._solution_steps = result["path"][1:]
-        self._animating = True
-        self._animate_next()
+        # Descarta o primeiro estado (tabuleiro atual já está na tela)
+        self._passos_solucao = resultado["caminho"][1:]
+        self._animando = True
+        self._animar_proximo()
 
-    def _animate_next(self):
-        """Avança um passo da solução e agenda o próximo com after()."""
-        if not self._solution_steps:
-            self._animating = False
-            self._refresh()  # garante que o status de vitória seja exibido
+    def _animar_proximo(self):
+        """
+        Avança um passo da solução e agenda o próximo com after().
+        after() é não-bloqueante: a janela permanece responsiva durante a animação.
+        """
+        if not self._passos_solucao:
+            self._animando = False
+            self._atualizar()  # exibe a mensagem de vitória ao final
             return
 
-        self.board = self._solution_steps.pop(0)
-        self.moves += 1
-        self._refresh()
+        self.tabuleiro = self._passos_solucao.pop(0)
+        self.movimentos += 1
+        self._atualizar()
 
-        self.after(STEP_DELAY, self._animate_next)
+        self.after(DELAY_ANIMACAO, self._animar_proximo)
 
 
-# ── Entrada ───────────────────────────────────────────────────────────────────
+# ── Ponto de entrada ──────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
     App().mainloop()

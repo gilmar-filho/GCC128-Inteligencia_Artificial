@@ -1,17 +1,14 @@
-# Jogo dos Oito — Busca Heurística
+# Jogo dos Oito - Busca Heurística
 
-Trabalho Prático 04 · GCC 128 – Inteligência Artificial · UFLA  
-Professores: Ahmed Ali Abdalla Esmin · Anna Paula Figueiredo
+Trabalho Prático 04 | GCC128 - Inteligência Artificial | UFLA  
+Professores: Ahmed Ali Abdalla Esmin
 
 ---
 
 ## Sobre o projeto
 
-Implementação do **8-puzzle** com dois algoritmos de busca e interface gráfica interativa.
-
-O tabuleiro é uma grade 3×3 com peças numeradas de 1 a 8 e um espaço em branco.
-O objetivo é atingir o estado-meta abaixo a partir de qualquer configuração inicial válida,
-movendo o espaço em branco nas quatro direções cardinais.
+A ideia do projeto é usar o **Jogo dos Oito** para comparar o uso de algoritmos cegos e informados para a resolução de problemas de busca.
+O tabuleiro é uma grade 3×3 com peças numeradas de 1 a 8 e um espaço em branco. O objetivo é atingir o estado-meta abaixo a partir de qualquer configuração inicial válida, movendo uma peça por vez para o espaço vazio.
 
 ```
 Estado-meta:
@@ -26,37 +23,37 @@ Estado-meta:
 
 ## Algoritmos implementados
 
-### BFS — Busca em Largura (método cego)
-Explora os estados nível a nível usando uma fila FIFO.  
+### BFS - Busca em Largura (método cego)
+
+Usa uma fila FIFO (primeiro a entrar, primeiro a sair) para explorar os estados nível a nível: primeiro todos a 1 movimento, depois todos a 2, e assim por diante. Não usa nenhuma informação sobre o objetivo - examina estados na ordem em que chegam, sem critério de prioridade.
 Garante a solução de **menor número de movimentos**, mas pode expandir muitos nós.
 
 ### A* (método informado)
-Seleciona sempre o estado de menor `f(n) = g(n) + h(n)`:
-- `g(n)` — movimentos realizados até o estado `n`
-- `h(n)` — distância de Manhattan até a meta (heurística admissível)
 
-Garante a mesma solução ótima que BFS, expandindo muito menos nós na prática.
+Seleciona sempre o estado de menor `f(n) = g(n) + h(n)`:
+- `g(n)` - movimentos já realizados para chegar até o estado `n`
+- `h(n)` - distância de Manhattan até a meta (heurística admissível)
+
+Garante a mesma solução ótima que o BFS, expandindo muito menos nós na prática.
 
 ### Distância de Manhattan
-Para cada peça, conta quantas linhas + colunas a separam da sua posição-meta,
-ignorando as demais peças. É **admissível** (nunca superestima) e **consistente**.
+
+Para cada peça, conta quantas linhas + colunas a separam da sua posição-meta, ignorando as demais peças. É **admissível** porque nunca superestima o custo real - cada peça precisaria de pelo menos essa quantidade de movimentos, mesmo sem obstáculos.
 
 ---
 
 ## Estrutura do projeto
 
 ```
-8puzzle/
-├── puzzle/
-│   ├── board.py    # estado, vizinhos, resolubilidade, heurística
-│   ├── bfs.py      # algoritmo BFS
-│   ├── astar.py    # algoritmo A*
-│   └── game.py     # lógica do modo jogo (movimentos, estado aleatório)
-├── app_tk.py          # interface gráfica Tkinter
+#04 Jogo dos Oito/
+├── tabuleiro.py   # estado, vizinhos, heurística, resolubilidade, movimentos
+├── algoritmos.py  # BFS e A* no mesmo arquivo
+├── app_tk.py      # interface gráfica Tkinter
 └── README.md
 ```
 
-Cada módulo em `puzzle/` tem responsabilidade única e não importa nada de interface.  
+`tabuleiro.py` concentra toda a lógica do tabuleiro e não sabe nada de interface ou busca.  
+`algoritmos.py` importa apenas de `tabuleiro.py` e não sabe nada de interface.  
 `app_tk.py` apenas orquestra — zero lógica de busca nele.
 
 ---
@@ -87,22 +84,10 @@ python app_tk.py
 
 O jogo começa com um estado aleatório já na tela.
 
-**Jogar manualmente:** use as setas do teclado para mover o espaço em branco.
+**Jogar manualmente:** clique em uma peça adjacente ao espaço vazio para movê-la, ou use as setas do teclado (a seta indica a direção em que o número se desloca).
 
 **Resolver com algoritmo:** clique em "Resolver com BFS" ou "Resolver com A\*". O tabuleiro se atualiza passo a passo até atingir a meta. As métricas (movimentos, nós expandidos, tempo) aparecem abaixo dos botões.
 
-**Jogar e depois resolver:** jogue quantos movimentos quiser e acione o algoritmo a qualquer momento — ele resolve a partir do estado atual.
+**Jogar e depois resolver:** jogue quantos movimentos quiser e acione o algoritmo a qualquer momento - ele resolve a partir do estado atual.
 
 **Novo jogo:** gera um novo estado aleatório e reinicia o contador.
-
----
-
-## Notas sobre resolubilidade
-
-O espaço de estados do 8-puzzle divide-se em **dois conjuntos disjuntos**:
-metade dos estados alcança a meta, a outra metade não.
-
-A condição usada: a paridade do número de inversões do estado inicial deve ser
-**igual** à paridade das inversões do estado-meta.
-O estado-meta adotado possui 7 inversões (ímpar), portanto apenas estados com
-número ímpar de inversões são resolúveis em relação a ele.
