@@ -109,7 +109,7 @@ Neste projeto, exploramos a resolução do clássico Jogo dos Oito, comparando a
 
 ### 🎥 Vídeo de apresentação
 
-[![Assista no YouTube](https://img.youtube.com/vi/v=1mdwqqZJ9ro/0.jpg)](https://www.youtube.com/watch?v=1mdwqqZJ9ro)
+[![Assista no YouTube](https://img.youtube.com/vi/1mdwqqZJ9ro/0.jpg)](https://www.youtube.com/watch?v=1mdwqqZJ9ro)
 
 ---
 
