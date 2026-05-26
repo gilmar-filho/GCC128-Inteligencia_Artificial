@@ -90,7 +90,26 @@ O modelo foi treinado e avaliado em duas bases de dados multiclasse distintas pa
 ---
 
 ### 🔹 Projeto 4 - Busca (8-Puzzle)
-🚧 Em desenvolvimento
+
+Neste projeto, exploramos a resolução do clássico Jogo dos Oito, comparando algoritmos de busca estruturados aplicados à Inteligência Artificial. Foram implementadas e comparadas duas abordagens distintas de busca para encontrar o caminho mais curto até a meta:
+
+- **Busca Cega:** Algoritmo de Busca em Largura (BFS).
+- **Busca Informada:** Algoritmo A* (A-Estrela) utilizando a heurística da Distância de Manhattan.
+
+### 📊 O que foi feito:
+- Modelagem do ambiente do jogo em um tabuleiro $3\times3$ com 8 peças numeradas e um espaço vazio.
+- Implementação de um verificador de paridade de inversões para garantir que os estados iniciais gerados aleatoriamente possuam solução matemática viável.
+- Implementação do algoritmo BFS utilizando uma fila FIFO, realizando uma busca exaustiva nível por nível sem prioridade de estados.
+- Implementação do algoritmo A* guiado pela função matemática `f(n)=g(n)+h(n)` para priorizar os caminhos mais promissores.
+- Criação da heurística da Distância de Manhattan, contabilizando o deslocamento estimado em linhas e colunas que cada peça precisa andar até sua posição correta.
+- Análise de desempenho computacional comparando a complexidade de espaço e a quantidade de nós expandidos, evidenciando o esforço típico de ~50.000 nós na busca cega contra apenas ~200 nós na busca informada.
+- Desenvolvimento de uma Interface Gráfica (GUI) utilizando a biblioteca `tkinter`, permitindo jogar manualmente via cliques ou teclado, além de acompanhar a animação passo a passo da resolução feita pelos algoritmos.
+
+📘 O projeto foi desenvolvido de forma modular em **Python** (`app_tk.py`, `algoritmos.py` e `tabuleiro.py`), focado na demonstração visual interativa do funcionamento interno dos algoritmos.
+
+### 🎥 Vídeo de apresentação
+
+[![Assista no YouTube](https://img.youtube.com/vi/v=1mdwqqZJ9ro/0.jpg)](https://www.youtube.com/watch?v=1mdwqqZJ9ro)
 
 ---
 
