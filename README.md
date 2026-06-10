@@ -114,7 +114,26 @@ Neste projeto, exploramos a resolução do clássico Jogo dos Oito, comparando a
 ---
 
 ### 🔹 Projeto 5 - Algoritmos Genéticos
-🚧 Em desenvolvimento
+
+Neste projeto, aplicamos os conceitos de computação evolutiva através da implementação de um **Algoritmo Genético (AG)** do zero para a otimização de funções matemáticas. O objetivo fundamental foi encontrar o valor máximo (ótimo global) da função quadrática $f(x)=x^{2}-3x+4$ restringindo o espaço de busca ao intervalo contínuo $[-10, +10]$.
+
+### 📊 O que foi feito:
+- Implementação completa do pipeline de um Algoritmo Genético em Python.
+- Codificação das soluções candidatas (indivíduos) utilizando representação de cromossomos em **vetores binários** de 5 bits, mapeados matematicamente para o domínio real.
+- Definição da função de **Aptidão (Fitness)** para avaliar a qualidade de cada indivíduo.
+- Construção dos operadores genéticos:
+  - **Seleção por Torneio** para priorizar a reprodução dos genes mais fortes mantendo certa diversidade.
+  - **Crossover de um ponto** (taxa de 70%) para promover a herança de características promissoras.
+  - **Mutação** (taxa de 1% via inversão de bits) para introduzir variação aleatória no ambiente.
+- Execução automatizada de uma bateria de testes variando os hiperparâmetros arquiteturais: Tamanho da População (4 e 30 indivíduos) e Número de Gerações (5 e 20 gerações).
+- Análise aprofundada dos resultados, comprovando empiricamente a vulnerabilidade de populações pequenas ao fenômeno do **Ótimo Local**, em contraste com a convergência robusta para o **Ótimo Global** gerada pela alta diversidade genética.
+
+📘 O projeto foi desenvolvido em formato de **Jupyter Notebook**, acompanhado de um **Relatório Técnico em PDF** com as conclusões analíticas e tabelas de métricas.
+
+### 🎥 Vídeo de apresentação
+
+[![Assista no YouTube](https://img.youtube.com/vi/SEU_LINK_AQUI/0.jpg)](https://www.youtube.com/watch?v=SEU_LINK_AQUI)
+
 
 ---
 
