@@ -132,7 +132,7 @@ Neste projeto, aplicamos os conceitos de computação evolutiva através da impl
 
 ### 🎥 Vídeo de apresentação
 
-[![Assista no YouTube](https://img.youtube.com/vi/SEU_LINK_AQUI/0.jpg)](https://www.youtube.com/watch?v=SEU_LINK_AQUI)
+[![Assista no YouTube](https://img.youtube.com/vi/vZVfpfUpIM4/0.jpg)](https://www.youtube.com/watch?v=vZVfpfUpIM4)
 
 
 ---
