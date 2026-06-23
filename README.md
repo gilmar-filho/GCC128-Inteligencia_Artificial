@@ -137,8 +137,39 @@ Neste projeto, aplicamos os conceitos de computação evolutiva através da impl
 
 ---
 
-### 🔹 Projeto 6 - Sistemas Multiagentes
-🚧 Em desenvolvimento
+### 🔹 Projeto 6 - Agentes Inteligentes (Assistente de Viagens)
+
+Neste projeto, exploramos os conceitos de **Agentes Inteligentes** e **Sistemas Multiagentes** através da construção de um **Assistente de Viagens** colaborativo. A aplicação foi desenvolvida com o framework **LangGraph** e utiliza o LLM gratuito **Groq** (`openai/gpt-oss-120b`) como motor de raciocínio dos agentes.
+
+O foco do trabalho é demonstrar três pilares de sistemas baseados em agentes: a **colaboração entre múltiplos agentes**, o **uso de ferramentas (`@tool`)** para interagir com o mundo real e a **orquestração de fluxo** através de um estado compartilhado.
+
+A aplicação é composta por **dois agentes** que trabalham em sequência:
+- **Agente Pesquisador:** responsável por coletar dados reais sobre o destino. Implementado como um agente *ReAct* (`create_agent`), ele raciocina sobre o pedido do usuário e decide autonomamente quais ferramentas acionar.
+- **Agente Planejador:** recebe os dados coletados pelo Pesquisador e os transforma em um roteiro de viagem prático e organizado (clima, o que levar na mala, dicas e observações de câmbio).
+
+### 🛠️ Ferramentas (`@tool`) utilizadas
+Todas as ferramentas consomem **APIs públicas e gratuitas, sem necessidade de chave de acesso**:
+
+| Ferramenta | API Pública | Retorno |
+|---|---|---|
+| `buscar_clima` | Open-Meteo | Temperatura e condição climática atual da cidade |
+| `consultar_cep` | ViaCEP | Endereço completo a partir de um CEP brasileiro |
+| `cotacao_moeda` | AwesomeAPI | Cotação atual de um par de moedas (ex.: USD-BRL) |
+
+### 📊 O que foi feito:
+- Modelagem de um sistema **multiagente colaborativo** com o framework **LangGraph**.
+- Definição de um **estado compartilhado** tipado (`TypedDict`) como canal de comunicação entre os agentes.
+- Implementação de **3 ferramentas** com o decorador `@tool`, integrando o agente a fontes de dados reais (clima, endereços e cotações).
+- Construção do **Agente Pesquisador** seguindo o paradigma **ReAct** (*Reasoning + Acting*): o agente raciocina, decide qual ferramenta chamar, observa o resultado e itera até reunir as informações necessárias — evitando "alucinações" ao consultar fontes reais.
+- Construção do **Agente Planejador** especializado na síntese e geração do roteiro final.
+- Orquestração do fluxo com `StateGraph` (`START → pesquisador → planejador → END`) e visualização do grafo via diagrama Mermaid.
+- Demonstração prática com cenários nacional (com consulta de CEP) e internacional (com conversão de câmbio).
+
+📘 O projeto foi desenvolvido em formato de **Jupyter Notebook** (`assistente_viagens.ipynb`), preparado para execução no **Google Colab**.
+
+### 🎥 Vídeo de apresentação
+
+🚧 Em breve
 
 ---
 
@@ -163,6 +194,8 @@ O objetivo deste repositório é consolidar o aprendizado prático em Inteligên
 - Matplotlib  
 - Seaborn  
 - Jupyter Notebook  
+- LangGraph / LangChain  
+- Groq (LLM)  
 
 ---
 
